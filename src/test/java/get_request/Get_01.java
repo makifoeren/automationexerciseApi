@@ -26,18 +26,14 @@ Response JSON: All products list
         spec.pathParams("first","api","second","productsList");
 
 
-        Response response=given().spec(spec).when().get("/{first}/{second}");
+        Response response=given().spec(spec).accept(ContentType.JSON).when().get("/{first}/{second}");
 
 
-        //response.prettyPrint();
+       response.jsonPath().prettyPrint();
 
 
 
-        response.then().assertThat().statusCode(200);
-
-        JsonPath actualData = response.jsonPath();
-
-        System.out.println(actualData.getString(""));
+      response.then().assertThat().statusCode(200);
 
 
 

@@ -6,12 +6,10 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.Assert;
 import org.junit.Test;
-import pojo.AutomationPojo;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
 
-public class Post_01 extends AutomationExercise {
+public class Post_02 extends AutomationExercise {
 
     /*
     API URL: https://automationexercise.com/api/productsList
@@ -28,12 +26,13 @@ Response Message: This request method is not supported.
 
         Response response = given().contentType(ContentType.JSON).spec(spec).when().post("/{first}/{second}");
 
-       // response.prettyPrint();
+        response.jsonPath().prettyPrint();
 
 
         JsonPath actualData = response.jsonPath();
 
         Assert.assertEquals("This request method is not supported.", actualData.getString("message"));
+        Assert.assertEquals("405", actualData.getString("responseCode"));
         System.out.println(actualData.getString("message"));
 
     }
