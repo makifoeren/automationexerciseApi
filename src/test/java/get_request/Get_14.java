@@ -5,6 +5,10 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.Assert;
 import org.junit.Test;
+import test_date.AutomationExerciseTestData;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
@@ -24,16 +28,30 @@ Response JSON: User Detail
 
         spec.pathParams("first", "api", "second", "getUserDetailByEmail");
 
-        Response response=given().spec(spec).formParams("email","mahmut@gmail.com").when().get("/{first}/{second}");
+        AutomationExerciseTestData dataKey = new AutomationExerciseTestData();// gerekli methodun cagrilmasi icin obje olusturuyoruz
 
-        response.then().assertThat().statusCode(200);
+        Map<String, String> dataKeyIcMap = // ic map olusuturoyrz
+                dataKey.dataKeyMap("mahmut", "mahmut@gmail.com", "Mr");
+
+        System.out.println("dataKeyIcMap = " + dataKeyIcMap);
+
+        Map<String, Object> expectedData = dataKey.expectedDateMap(200, dataKeyIcMap);
+
+        System.out.println("expectedData = " + expectedData);
+
+        Response response = given().spec(spec).formParams("email", "mahmut@gmail.com").when().
+                get("/{first}/{second}");
 
         response.jsonPath().prettyPrint();
+        response.then().assertThat().statusCode(200);
+        JsonPath actualDateMap = response.jsonPath();
+        //Map<String, Object> actualDateMap = response.jsonPath(); //  De-Serialization ==> Json formatindan Java obj cevirme
 
-        JsonPath actualDate=response.jsonPath();
 
-        Assert.assertEquals("200",actualDate.getString("responseCode"));
-
+        Assert.assertEquals(expectedData.get("responseCode"), actualDateMap.get("200"));
+        Assert.assertEquals(expectedData.get("name"), ((Map) actualDateMap.get("user")).get("name"));
+        Assert.assertEquals(expectedData.get("email"), ((Map) actualDateMap.get("user")).get("email"));
+        Assert.assertEquals(expectedData.get("title"), ((Map) actualDateMap.get("user")).get("title"));
 
 
     }
