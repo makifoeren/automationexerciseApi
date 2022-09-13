@@ -33,7 +33,7 @@ Response JSON: User Detail
         JsonPath actualDate=response.jsonPath();
 
         Assert.assertEquals("200",actualDate.getString("responseCode"));
-        Assert.assertEquals("mahmut",actualDate.getString("name"));
+
 
 
     }
