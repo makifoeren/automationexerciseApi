@@ -26,7 +26,7 @@ Response JSON: Searched products list
 
         spec.pathParams("first", "api", "second", "searchProduct");
 
-        Response response = given().when().spec(spec).contentType(ContentType.JSON).get("/{first}/{second}");
+        Response response = given().spec(spec).formParam("search_product","jean").when().post("/{first}/{second}");
 
         response.jsonPath().prettyPrint();
 
