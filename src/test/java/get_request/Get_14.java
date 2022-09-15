@@ -56,9 +56,9 @@ Response JSON: User Detail
         System.out.println("actualDateMap = " + actualDateMap);
 
         Assert.assertEquals(expectedData.get("responseCode"), actualDateMap.get("responseCode"));
-        Assert.assertEquals(expectedData.get("name"), ((Map) actualDateMap.get("user")).get("name"));
-        Assert.assertEquals(expectedData.get("email"), ((Map) actualDateMap.get("user")).get("email"));
-        Assert.assertEquals(expectedData.get("title"), ((Map) actualDateMap.get("user")).get("title"));
+        Assert.assertEquals(dataKeyIcMap.get("name"), ((Map) actualDateMap.get("user")).get("name"));
+        Assert.assertEquals(dataKeyIcMap.get("email"), ((Map) actualDateMap.get("user")).get("email"));
+        Assert.assertEquals(dataKeyIcMap.get("title"), ((Map) actualDateMap.get("user")).get("title"));
 
 
     }
